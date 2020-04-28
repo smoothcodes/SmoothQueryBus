@@ -1,6 +1,6 @@
 <?php
 
-namespace SmoothCodes\SmoothQueryBus\Query;
+namespace Tests\SmoothQueryBus\Query;
 
 use SmoothCodes\SmoothQueryBus\QueryInterface;
 

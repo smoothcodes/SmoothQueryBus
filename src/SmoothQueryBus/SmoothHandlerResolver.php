@@ -3,6 +3,7 @@
 namespace SmoothCodes\SmoothQueryBus;
 
 use Psr\Container\ContainerInterface;
+use SmoothCodes\SmoothQueryBus\Exception\ServiceNotFoundException;
 
 /**
  * Class SmoothHandlerResolver
@@ -16,12 +17,26 @@ class SmoothHandlerResolver implements HandlerResolverInterface {
     protected $container;
 
     /**
+     * @var HandlerResolvingStrategy
+     */
+    protected $handlerResolvingStrategy;
+
+    /**
      * SmoothHandlerResolver constructor.
      * @param ContainerInterface $container
+     * @param HandlerResolvingStrategy $handlerResolvingStrategy
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ContainerInterface $container, HandlerResolvingStrategy $handlerResolvingStrategy = null)
     {
         $this->container = $container;
+        $this->handlerResolvingStrategy = !empty($handlerResolvingStrategy)
+            ? $handlerResolvingStrategy
+            : new class implements HandlerResolvingStrategy {
+                public function getHandlerClassName(QueryInterface $query)
+                {
+                    return preg_replace('#Query\\\\#', 'Handler\\', get_class($query)) . 'Handler';
+                }
+            };
     }
 
     /**
@@ -38,8 +53,7 @@ class SmoothHandlerResolver implements HandlerResolverInterface {
         $handlerParams = [];
         foreach ($reflection->getConstructor()->getParameters() as $parameter) {
             if (!$this->getContainer()->has($parameter->getClass()->getName())) {
-                //@TODO: Cusotmize exception.
-                throw new \Exception();
+                throw new ServiceNotFoundException($parameter->getClass()->getName());
             }
             $handlerParams[] = $this->getContainer()->get($parameter->getClass()->getName());
         }
@@ -64,7 +78,7 @@ class SmoothHandlerResolver implements HandlerResolverInterface {
      */
     public function getHandlerClassName(QueryInterface $query)
     {
-        return preg_replace('#Query\\\\#', 'Handler\\', get_class($query)) . 'Handler';
+        return $this->handlerResolvingStrategy->getHandlerClassName($query);
     }
 
     /**

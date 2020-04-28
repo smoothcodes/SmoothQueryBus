@@ -1,25 +1,30 @@
 {
-    "name": "smoothcodes/smooth-query-bus",
-    "type": "library",
-    "require": {
-        "php": ">=7.0",
-        "psr/container": "^1.0"
-    },
-    "description": "",
-    "require-dev": {
-        "phpunit/phpunit": "^9.1"
-    },
-    "version": "1.0",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Jakub Rusinowicz",
-            "email": "rusinowiczjakub@hotmail.com"
-        }
-    ],
-    "autoload": {
-        "psr-4": {
-            "SmoothCodes\\": "src/"
-        }
+  "name": "smoothcodes/smooth-query-bus",
+  "type": "library",
+  "require": {
+    "php": ">=7.0",
+    "psr/container": "^1.0"
+  },
+  "description": "",
+  "require-dev": {
+    "phpunit/phpunit": "^9.1"
+  },
+  "version": "1.0",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jakub Rusinowicz",
+      "email": "rusinowiczjakub@hotmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "SmoothCodes\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  }
 }

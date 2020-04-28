@@ -2,13 +2,13 @@
 
 This simple package will help you to implement CQRS in your project. Easy to integrate with Laravel, Symfony or raw PHP project.
 
-##Installation
+## Installation
 
 ```bash
 $ composer require smoothcodes/smooth-query-bus
 ```
 
-##Usage
+## Usage
 
 This package is using Psr\ContainerInterface to resolve dependencies injected to Query Handlers. Symfony and Laravel Dependency Container is implementing ContainerInterface so it's really easy to implement SmoothQueryBus in your Symfony/Laravel Project.
 

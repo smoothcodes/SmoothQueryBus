@@ -28,6 +28,7 @@ class SmoothHandlerResolver implements HandlerResolverInterface {
      * @param QueryInterface $query
      * @return mixed
      * @throws \ReflectionException
+     * @throws \Exception
      */
     public function resolve(QueryInterface $query)
     {
@@ -36,6 +37,10 @@ class SmoothHandlerResolver implements HandlerResolverInterface {
 
         $handlerParams = [];
         foreach ($reflection->getConstructor()->getParameters() as $parameter) {
+            if (!$this->getContainer()->has($parameter->getClass()->getName())) {
+                //@TODO: Cusotmize exception.
+                throw new \Exception();
+            }
             $handlerParams[] = $this->getContainer()->get($parameter->getClass()->getName());
         }
 

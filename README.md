@@ -31,6 +31,21 @@ Each `Query` should implement `SmoothCodes\SmoothQueryBus\QueryInterface` and ea
 
 Now you're ready to dispatch your queries like that:
 
+In handlers __invoke method is called as action. So Handler should look like this:
+
+```php
+
+class GetUserByIdQueryHandler implements HandlerInterface {
+    protected $userRepository;
+
+    public function __construct(UserRepositoryInterface $User Repository) {
+        $this->userRepository = $userRepository;
+    }
+
+    public function __invoke(GetUserByIdQuery $query) {
+        return $this->userRepository->find($query->id);
+}
+
 ```php
 $queryBus = new SmoothQueryBus(
     new SmoothHandlerResolver($container)

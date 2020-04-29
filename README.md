@@ -37,7 +37,7 @@ In handlers __invoke method is called as action. So Handler should look like thi
 class GetUserByIdQueryHandler implements HandlerInterface {
     protected $userRepository;
 
-    public function __construct(UserRepositoryInterface $User Repository) {
+    public function __construct(UserRepositoryInterface $userRepository) {
         $this->userRepository = $userRepository;
     }
 

@@ -1,6 +1,6 @@
 # SmoothQueryBus
 
-This simple package will help you to implement CQRS in your project. Easy to integrate with Laravel, Symfony or raw PHP project.
+This simple package will help you to implement Query part of CQRS in your project. Easy to integrate with Laravel, Symfony or raw PHP project.
 
 ## Installation
 

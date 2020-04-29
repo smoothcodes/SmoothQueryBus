@@ -34,7 +34,6 @@ Now you're ready to dispatch your queries like that:
 In handlers __invoke method is called as action. So Handler should look like this:
 
 ```php
-
 class GetUserByIdQueryHandler implements HandlerInterface {
     protected $userRepository;
 
@@ -45,13 +44,14 @@ class GetUserByIdQueryHandler implements HandlerInterface {
     public function __invoke(GetUserByIdQuery $query) {
         return $this->userRepository->find($query->id);
 }
+```
 
 ```php
 $queryBus = new SmoothQueryBus(
     new SmoothHandlerResolver($container)
 );
 
-$result = $queryBus->query(new GetUserByIdQuery(...));
+$result = $queryBus->query(new GetUserByIdQuery($id));
 ```
 
 If you want you can implement your own Query Handler Resolving Strategy by providing class implementing `SmoothCodes\SmoothQueryBus\HandlerResolvingStrategy` to `SmoothHandlerResolver` instance eg. like that:
